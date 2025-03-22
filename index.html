@@ -2,81 +2,316 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description"
+        content="Experience ultimate relaxation at Carrafox Massage – where skilled therapists provide rejuvenating massage therapy in a serene, luxurious environment. Book your session today and indulge in pure tranquility.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Massage Website</title>
-    <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/mobile.css">
+
+    <!-- 
+    - favicon
+  -->
+    <link rel="shortcut icon" href="img/favicon.jpeg" type="image/jpeg">
+    <!-- 
+    - preload images
+  -->
+    <link rel="preload" as="image" href="img/logo.png">
+
+    <title>Carrafox Massage</title>
 </head>
+
+
 <body>
-    <header>
-        <nav>
-            <div class="logo">Carrafox Massage Services</div> 
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Massages</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <i class="ri-menu-line hamburger"></i>
-        </nav>
-    </header>
-    
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <i class="ri-close-line close-btn"></i>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#services">Massages</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+
+    <!-- DESKTOP NAVIGATION BAR -->
+    <div class="desktop-navbar">
+        <div class="desk-nav-item">
+            <a href="#">Home</a>
+        </div>
+        <div class="desk-nav-item">
+            <a href="#CEO">About</a>
+        </div>
+        <div class="desk-nav-item-img">
+            <img src="img/logo.png" alt="logo">
+        </div>
+        <div class="desk-nav-item">
+            <a href="#review-page">Reviews</a>
+        </div>
+        <div class="desk-nav-item">
+            <a href="#pricing-section">Pricing</a>
+        </div>
+        <div class="desk-nav-item" id="menu-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="35" height="35" fill="currentColor">
+                <path d="M3 4H21V6H3V4ZM9 11H21V13H9V11ZM3 18H21V20H3V18Z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Carrafox Massage</h2>
+            <button class="close-btn" id="close-btn">
+                <i class="ri-close-line"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#"><i class="ri-home-4-line"></i> Home</a></li>
+            <li><a href="#CEO"><i class="ri-user-star-line"></i> About</a></li>
+            <li><a href="#review-page"><i class="ri-customer-service-2-line"></i> Reviews</a></li>
+            <li><a href="#pricing-section"><i class="ri-secure-payment-line"></i> Pricing</a></li>
         </ul>
     </div>
-    
-    <!-- Overlay -->
-    <div class="overlay"></div>
-    
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Relax and Recharge.</h1>
-            <p>Your body deserves care, and at <b>Carrafox Massage Services</b>, we make every touch count. Book your healing session today and step into a world of peace, balance, and renewal.</p>
-            <a href="payment.html" class="btn">Click for Appointments</a>
+
+
+    <!-- FIRST SECTION -->
+    <section class="first-sect">
+        <div class="article">
+            <p>Serenity in every touch, relaxation in every moment</p>
+            <a href="#pricing-section">
+                <button class="contact-btn">
+                    <i class="ri-shake-hands-line"></i>
+                    <code>Book Now</code>
+                </button>
+            </a>
         </div>
     </section>
 
-    <section class="about">
+    <br><br>
+
+    <!-- THE ABOUT ME SECTION  -->
+    <p class="meet-the-ceo" id="CEO">Meet the CEO</p>
+
+    <section class="about-section">
         <div class="about-container">
-            <div class="about-image">
-                <img src="img/IMG-20250316-WA0028.jpg" alt="Massage Therapist">
-            </div>
-            <div class="about-text">
-                <h2>About Me</h2>
-                <p>Welcome to my massage therapy services! I specialize in various massage techniques to help you relax and rejuvenate.</p>
-                <p>With years of experience, I am dedicated to providing the best massage services tailored to your needs.</p>
+            <div class="about-img"></div>
+            <div class="right">
+                <div class="content">
+                    <h1>Meet Carrafox</h1>
+                    <p>
+                        Hello! I'm Carrafox, Founder of Carrafox Massage Services. As a dedicated wellness expert, I specialize in the art of relaxation and holistic healing. Through soothing touch and therapeutic techniques, I’ve helped countless individuals release stress, restore balance, and embrace a deeper sense of well-being. Don’t just take my word for it – experience the tranquility yourself and explore our client testimonials below.     
+                    </p>
+                </div>
             </div>
         </div>
     </section>
-    
-    <section id="services">
-        <h2>My Services</h2>
-        <hr>
-        <div class="services-list">
-            <div class="service">Swedish Massage</div>
-            <div class="service">Deep Tissue Massage</div>
-            <div class="service">Prenatal Massage</div>
-            <div class="service">Hot Stone Massage</div>
-            <div class="service">Reflexology Massage</div>
-            <div class="service">Sports Massage</div>
-            <div class="service">Trigger Point Massage</div>
-            <div class="service">Couples Massage</div>
-            <div class="service">Spa Packages</div>
+
+    <!-- REVIEW SECTION -->
+
+    <h2 class="section-heading-title" id="review-page">Our Reviews</h2>
+    <swiper-container class="mySwiper" pagination="true" effect="coverflow" grab-cursor="true" centered-slides="true"
+        slides-per-view="auto" coverflow-effect-rotate="0" coverflow-effect-stretch="0" coverflow-effect-depth="100"
+        coverflow-effect-modifier="1" coverflow-effect-slide-shadows="false">
+        <swiper-slide>
+            <div class="slide">
+                <br>
+                <img class="review-img" src="./img/review.png" loading="lazy" alt="Logo 1">
+                <div class="testimonial">
+                    <p class="review">From the moment I linked up with Carrafox Massage, I felt an overwhelming sense of calm. My Swedish massage was absolutely heavenly! The therapist’s gentle yet firm touch melted away all my tension, and I left feeling lighter, more relaxed, and stress-free. This is now my go-to place for self-care!
+                    </p><br><br>
+                    <p>- Emily Carter -> Swedish Massage</p>
+                </div>
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <div class="slide">
+                <br>
+                <img class="review-img" src="./img/review.png" loading="lazy" alt="Logo 1">
+                <div class="testimonial">
+                    <p class="review">The warmth of the hot stones combined with the therapist’s skilled hands had me floating in pure bliss. And let’s just say, by the end of the session… I walked out feeling completely satisfied. Carrafox Massage knows exactly how to leave you feeling refreshed in every way possible. 10/10 experience!
+                    </p><br>
+                    <p>- Jason Miller –> Hot Stone Massage (With a Happy Ending 😏)</p>
+                </div>
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <div class="slide">
+                <br>
+                <img class="review-img" src="./img/review.png" loading="lazy" alt="Logo 1">
+                <div class="testimonial">
+                    <p class="review">As someone who works long hours at a desk, I constantly struggle with back pain and muscle stiffness. The deep tissue massage at Carrafox Massage was exactly what I needed. My therapist knew exactly where to apply pressure, and after just one session, I felt a huge difference. Highly recommend for anyone dealing with chronic pain!</p><br>
+                    <p>- Mark Thompson –> Deep Tissue Massage</p>
+                </div>
+            </div>
+        </swiper-slide>
+        <swiper-slide>
+            <div class="slide">
+                <br>
+                <img class="review-img" src="./img/review.png" loading="lazy" alt="Logo 1">
+                <div class="testimonial">
+                    <p class="review">Pregnancy has been a beautiful journey, but let’s be honest—it comes with a lot of body aches! The prenatal massage at Carrafox was a lifesaver. The therapist made sure I was comfortable the entire time, and the massage helped relieve the tension in my lower back and legs. I slept like a baby that night! Can’t wait for my next session
+                    </p><br>
+                    <p>- Sarah Williams –> Prenatal Massage</p>
+                </div>
+            </div>
+        </swiper-slide>
+
+    </swiper-container>
+
+    <br><br>
+
+   <h2 class="section-heading-title" id="pricing-section">Payment and Verification Guidelines</h2>
+    <div class="requirements">
+        <b> For a secure experience, please provide: </b>
+        <br>
+        <ul>
+           <ol>To secure your massage appointment at Carrafox Massage, a 50% deposit of the service price is required at the time of booking. The remaining balance is payable before or immediately after your session. Deposits are non-refundable for same-day cancellations or no-shows, but rescheduling is allowed once with at least 24 hours' notice. Customers must provide basic contact details, select their preferred service, and disclose any relevant health conditions.</ol>
+        </ul>
+
+        <br>
+
+        <i style="text-align: center; width: 90%;">After you select a service, you'll be re-directed to the payment page</i>
+        
+    </div>
+
+    <br>
+
+    <div class="price-card-container">
+
+        <div class="price-card">
+            <h2>Aromatherapy Massage with Happy Ending</h2>
+            <br>
+            <p> <b>Price:</b> $120 per hour</p>
+            <p> 
+                <b>Info:</b>
+                <ol>
+                    <li>Full-body relaxation massage with essential oils</li>
+                    <li>Stress and tension relief</li>
+                    <li>Ultimate relaxation experience with a happy ending</li>
+                </ol> 
+            </p>
+            <a href="#">
+                <button class="contact-btn" width="100%">
+                    <code>Get Started</code>
+                </button>
+            </a>
         </div>
-    </section>
-    
+
+        <div class="price-card">
+            <h2>Swedish Massage</h2>
+            <br>
+            <p> <b>Price:</b> $90 per hour</p>
+            <p> 
+                <b>Info:</b>
+                <ol>
+                    <li>Light to medium pressure for deep relaxation</li>
+                    <li>Improves circulation and relieves tension</li>
+                    <li>Perfect for first-time clients or stress relief</li>
+                </ol> 
+            </p>
+            <a href="#">
+                <button class="contact-btn" width="100%">
+                    <code>Get Started</code>
+                </button>
+            </a>
+        </div>
+
+        <div class="price-card">
+            <h2>Hot Stone Massage</h2>
+            <br>
+            <p> <b>Price:</b> $110 per hour</p>
+            <p> 
+                <b>Info:</b>
+                <ol>
+                    <li>Heated stones placed along the body for deep relaxation</li>
+                    <li>Relieves muscle stiffness and improves circulation</li>
+                    <li>Ideal for deep relaxation and stress relief</li>
+                </ol> 
+            </p>
+            <a href="#">
+                <button class="contact-btn" width="100%">
+                    <code>Get Started</code>
+                </button>
+            </a>
+        </div>
+
+        <div class="price-card">
+            <h2>Prenatal Massage</h2>
+            <br>
+            <p> <b>Price:</b> $95 per hour</p>
+            <p> 
+                <b>Info:</b>
+                <ol>
+                    <li>Safe and relaxing massage for expectant mothers</li>
+                    <li>Relieves back pain, swelling, and stress</li>
+                    <li>Improves circulation and reduces pregnancy discomfort</li>
+                </ol> 
+            </p>
+            <a href="#">
+                <button class="contact-btn" width="100%">
+                    <code>Get Started</code>
+                </button>
+            </a>
+        </div>
+
+        <div class="price-card">
+            <h2>Reflexology Massage</h2>
+            <br>
+            <p> <b>Price:</b> $85 per hour</p>
+            <p> 
+                <b>Info:</b>
+                <ol>
+                    <li>Pressure applied to reflex points on the hands and feet</li>
+                    <li>Promotes overall wellness and energy balance</li>
+                    <li>Helps relieve stress and improve circulation</li>
+                </ol> 
+            </p>
+            <a href="#">
+                <button class="contact-btn" width="100%">
+                    <code>Get Started</code>
+                </button>
+            </a>
+        </div>
+
+        <div class="price-card">
+            <h2>Deep Tissue Massage</h2>
+            <br>
+            <p> <b>Price:</b> $100 per hour</p>
+            <p> 
+                <b>Info:</b>
+                <ol>
+                    <li>Focuses on deep muscle layers and knots</li>
+                    <li>Helps with chronic pain and muscle tension</li>
+                    <li>Perfect for athletes and those with high stress</li>
+                </ol> 
+            </p>
+            <a href="#">
+                <button class="contact-btn" width="100%">
+                    <code>Get Started</code>
+                </button>
+            </a>
+        </div>
+
+    </div>
+
+    <br>
+
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 All rights reserved.</p>
+        <div class="footer-container">
+          <!-- Logo and About Section -->
+          <div class="footer-section">
+            <div class="footer-logo">
+              <img src="./img/logo.png" alt="Logo">
+              <span>Carrafox Massage</span>
+            </div>
+            <p>Experience ultimate relaxation at Carrafox Massage – where skilled therapists provide rejuvenating massage therapy . Book your session today.</p>
+          </div>
         </div>
-    </footer>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Carrafox Massage Services. All Rights Reserved.</p>
+        </div>
+        <br>
+      </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>
