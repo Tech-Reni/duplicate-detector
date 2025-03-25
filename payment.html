@@ -3,24 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Payment</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Payment Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.5s ease-in-out;
+            background: linear-gradient(135deg, #007bff, #00d4ff);
+            overflow: hidden;
+        }
+        .container {
+            width: 300px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .switcher {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            position: relative;
+            background: #ddd;
+            border-radius: 10px;
+        }
+        .switcher button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            z-index: 2;
+        }
+        .slider {
+            position: absolute;
+            width: 51%;
+            height: 80%;
+            padding: 5px;
+            background: #fff;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .content {
+            background-image: url('img/logo.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            width: 200%;
+            transition: transform 0.3s ease-in-out;
+        }
+        .payment-method {
+            width: 50%;
+            padding: 20px;
+        }
+    
+        .content button{
+            width: max-content;
+            padding: 10px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Crypto Payment</h1>
+    <div class="container">
+        <div class="switcher">
+            <div class="slider"></div>
+            <button onclick="switchPayment('transfer')">Transfer</button>
+            <button onclick="switchPayment('crypto')">Crypto</button>
+        </div>
+        <div class="content" id="content">
+            <div class="payment-method" id="transfer">
+                <h3>Bank Transfer</h3>
+                <p>To make a bank transfer kindly click the button for details</p>
+               <button onclick="sendMessage()">Proceed</button>
+            </div>
+            <div class="payment-method" id="crypto">
+                <h3>Crypto Payment</h3>
+                <p>Connect your wallet to proceed.</p>
 
-    <button id="connectWallet">Connect Wallet</button>
-    <p id="walletAddress">Not connected</p>
+                <button id="connectWallet">Connect Wallet</button>
+                <p id="walletAddress">Not connected</p>
+            
+                <label for="crypto">Select Crypto:</label>
+                <select id="crypto">
+                    <option value="ETH">Ethereum (ETH)</option>
+                    <option value="USDT">Tether (USDT - ERC-20)</option>
+                    <option value="BTC">Bitcoin (BTC)</option>
+                </select>
+            
+                <br><br>
 
-    <label for="amount">Amount (ETH):</label>
-    <input type="number" id="amount" step="0.0001" placeholder="Enter ETH amount">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" step="0.0001" placeholder="Enter amount">
+            
+                <button id="payButton" disabled>Pay</button>
+            
+                <p id="transactionStatus"></p>
+            </div>
+        </div>
+    </div>
 
-    <button id="payButton" disabled>Pay</button>
+    <script>
+        function switchPayment(method) {
+            const content = document.getElementById("content");
+            const slider = document.querySelector(".slider");
 
-    <p id="transactionStatus"></p>
+            if (method === "transfer") {
+                content.style.transform = "translateX(0%)";
+                slider.style.transform = "translateX(0%)";
+                document.body.style.background = "linear-gradient(135deg, #007bff, #00d4ff)"; // Blue gradient
+            } else {
+                content.style.transform = "translateX(-50%)";
+                slider.style.transform = "translateX(100%)";
+                document.body.style.background = "linear-gradient(135deg, #001f3f, #003366)"; // Purple gradient
+            }
+        }
+    </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.umd.min.js"></script>
-    <script src="https://unpkg.com/@walletconnect/web3-provider@2/dist/umd/index.min.js"></script>
-    <script type="module" src="payment.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.umd.min.js"></script>
+<script src="https://unpkg.com/@walletconnect/web3-provider@2/dist/umd/index.min.js"></script>
+<script type="module" src="payment.js"></script>
 </body>
 </html>
