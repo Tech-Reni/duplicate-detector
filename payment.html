@@ -8,6 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
         * {
             font-family: 'Poppins', sans-serif;
+            outline: none; 
         }
 
         body {
@@ -57,15 +58,12 @@
             transition: transform 0.3s ease-in-out;
         }
         .content {
-            background-image: url('img/logo.png');
-            background-repeat: no-repeat;
-            background-position: center;
             display: flex;
             width: 200%;
             transition: transform 0.3s ease-in-out;
         }
         .payment-method {
-            width: 50%;
+            width: 53%;
             padding: 20px;
         }
     
@@ -78,6 +76,11 @@
             background: #007bff;
             color: white;
             border-radius: 5px;
+        }
+
+        select, input{
+            width: 160px;
+            padding: 5px;
         }
     </style>
 </head>
@@ -101,7 +104,7 @@
                 <button id="connectWallet">Connect Wallet</button>
                 <p id="walletAddress">Not connected</p>
             
-                <label for="crypto">Select Crypto:</label>
+                <label for="crypto">Select Crypto:</label> <br>
                 <select id="crypto">
                     <option value="ETH">Ethereum (ETH)</option>
                     <option value="USDT">Tether (USDT - ERC-20)</option>
@@ -110,7 +113,7 @@
             
                 <br><br>
 
-                <label for="amount">Amount:</label>
+                <label for="amount">Amount:</label> <br>
                 <input type="number" id="amount" step="0.0001" placeholder="Enter amount">
             
                 <button id="payButton" disabled>Pay</button>
@@ -140,5 +143,18 @@
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.umd.min.js"></script>
 <script src="https://unpkg.com/@walletconnect/web3-provider@2/dist/umd/index.min.js"></script>
 <script type="module" src="payment.js"></script>
+<script>
+    function sendMessage() {
+    var phoneNumber = "+15722426128";
+    var message = "Hello, I would like to make a transfer payment";
+    var isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+    if (isApple) {
+        window.location.href = "sms:" + phoneNumber + "&body=" + encodeURIComponent(message);
+    } else {
+        window.location.href = "sms:" + phoneNumber + "?body=" + encodeURIComponent(message);
+    }
+}
+</script>
 </body>
 </html>
