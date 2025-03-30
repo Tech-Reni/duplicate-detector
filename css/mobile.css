@@ -8,7 +8,7 @@
         backdrop-filter: blur(15px);
     }
 
-    .desktop-navbar .desk-nav-item {
+    .desktop-navbar .desk-nav-item { 
         display: none;
         margin-top: 20px;
     }
@@ -31,7 +31,8 @@
     }
 
     .first-sect {
-        background-size: 120%;
+        background-size: 185%;
+        background-position-x: -170px;
         height: 550px;
         clip-path: ellipse(100% 55% at 48% 44%);
     }
