@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Page</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
         * {
             font-family: 'Poppins', sans-serif;
-            outline: none; 
+            outline: none;
         }
 
         body {
@@ -21,6 +23,7 @@
             background: linear-gradient(135deg, #007bff, #00d4ff);
             overflow: hidden;
         }
+
         .container {
             width: 300px;
             padding: 20px;
@@ -30,6 +33,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .switcher {
             display: flex;
             justify-content: space-between;
@@ -38,6 +42,7 @@
             background: #ddd;
             border-radius: 10px;
         }
+
         .switcher button {
             flex: 1;
             padding: 10px;
@@ -48,6 +53,7 @@
             position: relative;
             z-index: 2;
         }
+
         .slider {
             position: absolute;
             width: 51%;
@@ -57,17 +63,20 @@
             border-radius: 10px;
             transition: transform 0.3s ease-in-out;
         }
+
         .content {
             display: flex;
             width: 200%;
             transition: transform 0.3s ease-in-out;
         }
+
         .payment-method {
             width: 53%;
             padding: 20px;
         }
-    
-        .content button{
+
+        .content button {
+            cursor: pointer;
             width: max-content;
             padding: 10px;
             padding-left: 15px;
@@ -78,12 +87,66 @@
             border-radius: 5px;
         }
 
-        select, input{
+        select,
+        input {
             width: 160px;
             padding: 5px;
         }
+
+        .img-holder {
+            width: 80px;
+            height: 80px;
+            margin-left: calc(50% - 40px);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        .img-holder img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .wallet-container {
+            display: flex;
+            align-items: center;
+            width: 210px;
+            padding: 10px 15px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-family: sans-serif;
+        }
+
+        .wallet-address {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            user-select: all;
+        }
+
+        .copy-icon {
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .copy-icon:hover {
+            color: #000;
+        }
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <div class="switcher">
@@ -93,33 +156,49 @@
         </div>
         <div class="content" id="content">
             <div class="payment-method" id="transfer">
+                <div class="img-holder">
+                    <img src="./img/logo.png" alt="logo">
+                </div>
                 <h3>Bank Transfer</h3>
                 <p>To make a bank transfer kindly click the button for details</p>
-               <button onclick="sendMessage()">Proceed</button>
+                <button onclick="sendMessage()">Proceed</button>
             </div>
+
             <div class="payment-method" id="crypto">
                 <h3>Crypto Payment</h3>
-                <p>Connect your wallet to proceed.</p>
+                <b>BTC :</b>
+                <div class="wallet-container">
+                    <div class="wallet-address" id="walletAddress">
+                        0xF7a90eAFaa932d8eF6A183eB8F9E5AafCdd99e66
+                    </div>
+                    <div class="copy-icon" onclick="copyWalletAddress()">
+                        <i class="ri-file-copy-line"></i>
+                    </div>
+                </div>
 
-                <button id="connectWallet">Connect Wallet</button>
-                <p id="walletAddress">Not connected</p>
-            
-                <label for="crypto">Select Crypto:</label> <br>
-                <select id="crypto">
-                    <option value="ETH">Ethereum (ETH)</option>
-                    <option value="USDT">Tether (USDT - ERC-20)</option>
-                    <option value="BTC">Bitcoin (BTC)</option>
-                </select>
-            
-                <br><br>
+                <br>
+                <b>ETH :</b>
+                <div class="wallet-container">
+                    <div class="wallet-address" id="walletAddress">
+                        0x4735DD12589585a97E845706Bc1b2aE6AC740D59
+                    </div>
+                    <div class="copy-icon" onclick="copyWalletAddress()">
+                        <i class="ri-file-copy-line"></i>
+                    </div>
+                </div>
 
-                <label for="amount">Amount:</label> <br>
-                <input type="number" id="amount" step="0.0001" placeholder="Enter amount">
-            
-                <button id="payButton" disabled>Pay</button>
-            
-                <p id="transactionStatus"></p>
+                <br>
+                <b>USDT :</b>
+                <div class="wallet-container">
+                    <div class="wallet-address" id="walletAddress">
+                        0x4735DD12589585a97E845706Bc1b2aE6AC740D59
+                    </div>
+                    <div class="copy-icon" onclick="copyWalletAddress()">
+                        <i class="ri-file-copy-line"></i>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -138,23 +217,27 @@
                 document.body.style.background = "linear-gradient(135deg, #001f3f, #003366)"; // Purple gradient
             }
         }
+
+        function sendMessage() {
+            var phoneNumber = "+15722426128";
+            var message = "Hello, I would like to make a transfer payment";
+            var isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+            if (isApple) {
+                window.location.href = "sms:" + phoneNumber + "&body=" + encodeURIComponent(message);
+            } else {
+                window.location.href = "sms:" + phoneNumber + "?body=" + encodeURIComponent(message);
+            }
+        }
+
+        function copyWalletAddress() {
+            const text = document.getElementById("walletAddress").textContent;
+            navigator.clipboard.writeText(text)
+                .then(() => alert("Wallet address copied!"))
+                .catch(err => alert("Failed to copy address: " + err));
+        }
+        
     </script>
-
-<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.umd.min.js"></script>
-<script src="https://unpkg.com/@walletconnect/web3-provider@2/dist/umd/index.min.js"></script>
-<script type="module" src="payment.js"></script>
-<script>
-    function sendMessage() {
-    var phoneNumber = "+15722426128";
-    var message = "Hello, I would like to make a transfer payment";
-    var isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-    if (isApple) {
-        window.location.href = "sms:" + phoneNumber + "&body=" + encodeURIComponent(message);
-    } else {
-        window.location.href = "sms:" + phoneNumber + "?body=" + encodeURIComponent(message);
-    }
-}
-</script>
 </body>
+
 </html>
