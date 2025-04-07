@@ -31,8 +31,8 @@
     }
 
     .first-sect {
-        background-size: 185%;
-        background-position-x: -170px;
+        background-size: 250%;
+        background-position-x: center;
         height: 550px;
         clip-path: ellipse(100% 55% at 48% 44%);
     }
