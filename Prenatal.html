@@ -222,6 +222,13 @@
         .payment-btn.venmo {
             background-color: #3D95CE;
         }
+
+        #booking_time{
+            width:300px;
+            padding: 10px;
+            border:1px solid #ccc;
+            border-radius: 10px;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
@@ -248,6 +255,9 @@
                     <option value="4">4 hours</option>
                     <option value="5">5 hours</option>
                 </select>
+                <br>
+                <label for="hours">Booking Time:</label>
+                <input type="datetime-local" name="booking_time" id="booking_time" placeholder="Booking Time" required>
                 <p id="priceDisplay"> Price: $120 </p>
 
                 <!-- Payment Buttons -->
@@ -270,7 +280,7 @@
                 <div class="wallet-container">
                     <i class="ri-bit-coin-line crypto-icon"></i>
                     <div class="wallet-address" id="btcAddress">
-                        bc1q5mv3hqyy0tdsg6zqhx5sag5exc63x4rq5dpmal
+                        0xF7a90eAFaa932d8eF6A183eB8F9E5AafCdd99e66
                     </div>
                     <div class="copy-icon" onclick="copyAddress('btcAddress', this)">
                         <i class="ri-file-copy-line"></i>
@@ -327,9 +337,14 @@
 
         function sendSMS(paymentMethod) {
             const hours = parseInt(document.getElementById("hours").value);
+            const bookingTime = document.getElementById("booking_time").value;
+            if (!bookingTime) {
+                alert("Please select a booking time.");
+                return;
+            }
             const price = hours * 120;
             const phoneNumber = "+2602705959";
-            const message = `Hello Carrafox, I would like to pay a Depositing fee of $${price/2} for Pretanal Massage for ${hours} hour(s) via ${paymentMethod}.`;
+            const message = `Hello Carrafox, I would like to pay a Depositing fee of $${price/2} for Pretanal Massage for ${hours} hour(s) via ${paymentMethod} and I wiil like to have mine at ${bookingTime}.`;
             const isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
             if (isApple) {
