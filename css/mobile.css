@@ -1,4 +1,7 @@
-@media (max-width: 800px) {
+@media (max-width: 1400px) {
+    *{
+        display: none;
+    }
     .desktop-navbar {
         width: 100%;
         display: flex;
