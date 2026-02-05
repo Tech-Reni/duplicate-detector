@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | Carrafox</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+     <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.jpeg" type="image/jpeg">
+
+    
+    <style>
+        :root {
+            /* Carrafox Palette */
+            --bg-transfer: #F3F0EC;
+            --bg-crypto: #1A1A1A;
+            --card-bg: #FFFFFF;
+            --text-main: #2D2D2D;
+            --text-muted: #666666;
+            --accent: #8C7060; 
+            --accent-hover: #6B5446;
+            --border: #E5E5E5;
+            --radius: 16px;
+            --shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: var(--bg-transfer);
+            overflow: hidden;
+        }
+
+        /* Responsive Container */
+        .container {
+            width: 380px; /* Slightly wider for breathing room */
+            max-width: 90%;
+            height: auto;
+            min-height: 600px;
+            padding: 30px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header & Switcher --- */
+        .header-brand {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header-brand h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .switcher {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            position: relative;
+            background: #F0F0F0;
+            border-radius: 12px;
+            padding: 4px;
+        }
+
+        .switcher button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s;
+        }
+        
+        .switcher button.active-text {
+            color: var(--text-main);
+        }
+
+        .slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy effect */
+        }
+
+        /* --- Content Slider Wrapper --- */
+        .content-wrapper {
+            flex: 1;
+            position: relative;
+            overflow: hidden; /* Mask the sliding content */
+        }
+
+        .content {
+            display: flex;
+            width: 200%; /* 2 slides side by side */
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .payment-method {
+            width: 50%;
+            padding: 5px; /* internal padding */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* --- Transfer Section Styles --- */
+        .img-holder {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #f9f9f9;
+        }
+
+        .img-holder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+        }
+
+        /* Inputs */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background-color: #FAFAFA;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            appearance: none; /* Remove default browser arrow */
+        }
+
+        /* Custom arrow for Select */
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper::after {
+            content: '\EA4C'; /* Remix Icon arrow down */
+            font-family: 'remixicon';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--text-muted);
+        }
+
+        select:focus, input:focus {
+            border-color: var(--accent);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(140, 112, 96, 0.1);
+        }
+
+        /* Price Display */
+        .price-badge {
+            background-color: #F8F6F4;
+            color: var(--accent);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 1px dashed var(--accent);
+            margin-top: 5px;
+        }
+
+        /* Payment Buttons */
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .payment-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 12px;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.2s, opacity 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-btn:active {
+            transform: scale(0.98);
+        }
+
+        .payment-btn.apple { background-color: #000; }
+        .payment-btn.paypal { background-color: #0070BA; }
+        .payment-btn.venmo { background-color: #008CFF; }
+
+        .payment-btn i { font-size: 18px; }
+
+        /* --- Crypto Section Styles --- */
+        .crypto-header {
+            margin-bottom: 5px;
+        }
+
+        .crypto-card {
+            background: #F9F9F9;
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: border-color 0.3s;
+        }
+
+        .crypto-card:hover {
+            border-color: var(--accent);
+            background: white;
+        }
+
+        .coin-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-main);
+            flex-shrink: 0;
+        }
+
+        .crypto-details {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .coin-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .wallet-address {
+            font-family: 'Courier New', monospace; /* Monospaced for tech feel */
+            font-size: 13px;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--accent);
+            font-size: 18px;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: rgba(140, 112, 96, 0.1);
+        }
+
+        .copy-btn.active {
+            color: #27ae60;
+        }
+
+         /* --- MODAL STYLES --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 320px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            background-color: #F8F6F4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+        }
+
+        .modal-icon-wrapper i {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 0 0 10px 0;
+        }
+
+        .modal-msg {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0 0 20px 0;
+            line-height: 1.5;
+        }
+
+        .modal-close-btn {
+            background-color: var(--text-main);
+            color: white;
+            border: none;
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .modal-close-btn:hover {
+            background-color: black;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        
+        <!-- Header / Logo Area -->
+        <div class="header-brand">
+            <div class="img-holder">
+                <img src="./img/logo.png" alt="Carrafox Logo">
+            </div>
+            <h4>Carrafox Therapy</h4>
+        </div>
+
+        <!-- Toggle Switch -->
+        <div class="switcher">
+            <div class="slider"></div>
+            <button id="btn-transfer" class="active-text" onclick="switchPayment('transfer')">Transfer</button>
+            <button id="btn-crypto" onclick="switchPayment('crypto')">Crypto</button>
+        </div>
+
+        <!-- Sliding Content Area -->
+        <div class="content-wrapper">
+            <div class="content" id="content">
+                
+                <!-- 1. Transfer Section -->
+                <div class="payment-method" id="transfer">
+                    <div>
+                        <h2 class="section-title">Prenatal Massage</h2>
+                        <p class="section-subtitle">Secure Payment Details</p>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="hours">Duration</label>
+                        <div class="select-wrapper">
+                            <select id="hours" onchange="updatePrice()">
+                                <option value="1">1 hour</option>
+                                <option value="2">2 hours</option>
+                                <option value="3">3 hours</option>
+                                <option value="4">4 hours</option>
+                                <option value="5">5 hours</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="booking_time">Date & Time</label>
+                        <input type="datetime-local" name="booking_time" id="booking_time" required>
+                    </div>
+
+                    <div id="priceDisplay" class="price-badge">
+                        Total: $120
+                    </div>
+
+                    <!-- Payment Buttons -->
+                    <div class="btn-stack">
+                        <button class="payment-btn apple" onclick="sendSMS('Apple Pay')">
+                            <i class="ri-apple-fill"></i> Pay with Apple Pay
+                        </button>
+                        <button class="payment-btn paypal" onclick="sendSMS('PayPal')">
+                            <i class="ri-paypal-fill"></i> Pay with PayPal
+                        </button>
+                        <button class="payment-btn venmo" onclick="sendSMS('Venmo')">
+                            <i class="ri-bank-card-fill"></i> Pay with Venmo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Crypto Section -->
+                <div class="payment-method" id="crypto">
+                    <div class="crypto-header">
+                        <h3 class="section-title">Crypto Wallet</h3>
+                        <p class="section-subtitle">Copy address to send payment</p>
+                    </div>
+
+                    <!-- BTC -->
+                    <div class="crypto-card">
+                        <div class="coin-icon"><i class="ri-bit-coin-fill" style="color:#F7931A"></i></div>
+                        <div class="crypto-details">
+                            <span class="coin-name">Bitcoin (BTC)</span>
+                            <div class="wallet-address" id="btcAddress">0xF7a90eAFaa932d8eF6A183eB8F9E5AafCdd99e66</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyAddress('btcAddress', this)">
+                            <i class="ri-file-copy-line"></i>
+                        </button>
+                    </div>
+
+                    <!-- ETH -->
+                    <div class="crypto-card">
+                        <div class="coin-icon"><i class="ri-ethereum-fill" style="color:#627EEA"></i></div>
+                        <div class="crypto-details">
+                            <span class="coin-name">Ethereum (ETH)</span>
+                            <div class="wallet-address" id="ethAddress">0x4735DD12589585a97E845706Bc1b2aE6AC740D59</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyAddress('ethAddress', this)">
+                            <i class="ri-file-copy-line"></i>
+                        </button>
+                    </div>
+
+                    <!-- USDT -->
+                    <div class="crypto-card">
+                        <div class="coin-icon"><i class="ri-money-dollar-circle-fill" style="color:#26A17B"></i></div>
+                        <div class="crypto-details">
+                            <span class="coin-name">Tether (USDT)</span>
+                            <div class="wallet-address" id="usdtAddress">0x4735DD12589585a97E845706Bc1b2aE6AC740D59</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyAddress('usdtAddress', this)">
+                            <i class="ri-file-copy-line"></i>
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top:auto; text-align:center; font-size:12px; color:#999;">
+                        <i class="ri-shield-check-line"></i> Secure Transaction
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM MODAL HTML -->
+    <div id="alertModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-box">
+            <div class="modal-icon-wrapper">
+                <i class="ri-time-line"></i>
+            </div>
+            <h3 class="modal-title">Booking Time Required</h3>
+            <p class="modal-msg">Please select a preferred date and time for your appointment before proceeding.</p>
+            <button class="modal-close-btn" onclick="closeModal(null, true)">I Understand</button>
+        </div>
+    </div>
+
+    <script>
+        function switchPayment(method) {
+            const content = document.getElementById("content");
+            const slider = document.querySelector(".slider");
+            const btnTransfer = document.getElementById("btn-transfer");
+            const btnCrypto = document.getElementById("btn-crypto");
+
+            if (method === "transfer") {
+                // Slide Logic
+                content.style.transform = "translateX(0%)";
+                slider.style.transform = "translateX(0%)";
+                
+                // Text Styling
+                btnTransfer.classList.add("active-text");
+                btnCrypto.classList.remove("active-text");
+
+                // Background Theme (Light Urban)
+                document.body.style.background = "#F3F0EC";
+            } else {
+                // Slide Logic
+                content.style.transform = "translateX(-50%)";
+                slider.style.transform = "translateX(100%)"; // Moves to the second half
+
+                // Text Styling
+                btnCrypto.classList.add("active-text");
+                btnTransfer.classList.remove("active-text");
+
+                // Background Theme (Dark Modern)
+                document.body.style.background = "#2C2C2C";
+            }
+        }
+
+        function updatePrice() {
+            const hours = parseInt(document.getElementById("hours").value);
+            const price = hours * 120;
+            document.getElementById("priceDisplay").textContent = "Total: $" + price;
+        }
+
+         // --- NEW MODAL LOGIC ---
+        function showModal() {
+            const modal = document.getElementById('alertModal');
+            modal.classList.add('active');
+        }
+
+        function closeModal(event, force = false) {
+            // Close if button clicked (force=true) or if background overlay clicked
+            if (force || event.target.id === 'alertModal') {
+                const modal = document.getElementById('alertModal');
+                modal.classList.remove('active');
+            }
+        }
+
+        function sendSMS(paymentMethod) {
+            const hours = parseInt(document.getElementById("hours").value);
+            const bookingTime = document.getElementById("booking_time").value;
+            
+            if (!bookingTime) {
+                 showModal(); 
+                return;
+            }
+            
+            const price = hours * 120;
+            const phoneNumber = "+1(260)270-5959";
+            
+            // Logic Preserved: Deposit is price / 2
+            const message = `Hello Carrafox, I would like to pay a Depositing fee of $${price/2} for Pretanal Massage for ${hours} hour(s) via ${paymentMethod} and I wiil like to have mine at ${bookingTime}.`;
+            
+            const isApple = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+            if (isApple) {
+                window.location.href = `sms:${phoneNumber}&body=${encodeURIComponent(message)}`;
+            } else {
+                window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+            }
+        }
+
+        function copyAddress(addressId, iconButton) {
+            const text = document.getElementById(addressId).innerText;
+            const icon = iconButton.querySelector('i');
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // Visual feedback logic
+                iconButton.classList.add('active');
+                icon.className = "ri-check-line"; // Change icon to checkmark
+                
+                setTimeout(() => {
+                    iconButton.classList.remove('active');
+                    icon.className = "ri-file-copy-line"; // Revert icon
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+
+</html>
