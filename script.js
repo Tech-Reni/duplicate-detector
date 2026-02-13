@@ -127,9 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
 
         // CONFIGURATION
-        const bubbleCount = 8; // Keep it low for "Calm" vibe
-        const bubbles = [];
-        const baseSpeed = 0.5; // Slow movement for relaxation
+        const bubbleCount = 4; // Keep it low for "Calm" vibe
+        const bubbles = []
+        const baseSpeed = 0.8; // Slow movement for relaxation
         
         // Colors: Different opacities of the brand brown (#8C7060)
         const colors = [
