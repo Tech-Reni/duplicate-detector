@@ -37,22 +37,21 @@
 
         body {
             margin: 0;
-            height: 100vh;
+            height: 120vh;
             font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             transition: background 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
             background: var(--bg-transfer);
-            overflow: hidden;
         }
 
         /* Responsive Container */
         .container {
             width: 380px; /* Slightly wider for breathing room */
+            margin-top: 50px;
             max-width: 90%;
-            height: auto;
-            min-height: 600px;
+            height: 100%;
             padding: 30px;
             background: var(--card-bg);
             border-radius: 24px;
@@ -498,7 +497,7 @@
                     </div>
                 </div>
 
-                <!-- 2. Crypto Section -->
+                 <!-- 2. Crypto Section -->
                 <div class="payment-method" id="crypto">
                     <div class="crypto-header">
                         <h3 class="section-title">Crypto Wallet</h3>
@@ -510,7 +509,7 @@
                         <div class="coin-icon"><i class="ri-bit-coin-fill" style="color:#F7931A"></i></div>
                         <div class="crypto-details">
                             <span class="coin-name">Bitcoin (BTC)</span>
-                            <div class="wallet-address" id="btcAddress">0xF7a90eAFaa932d8eF6A183eB8F9E5AafCdd99e66</div>
+                            <div class="wallet-address" id="btcAddress">bc1q5mv3hqyy0tdsg6zqhx5sag5exc63x4rq5dpmal</div>
                         </div>
                         <button class="copy-btn" onclick="copyAddress('btcAddress', this)">
                             <i class="ri-file-copy-line"></i>
@@ -529,14 +528,14 @@
                         </button>
                     </div>
 
-                    <!-- USDT -->
+                    <!-- LTC -->
                     <div class="crypto-card">
                         <div class="coin-icon"><i class="ri-money-dollar-circle-fill" style="color:#26A17B"></i></div>
                         <div class="crypto-details">
-                            <span class="coin-name">Tether (USDT)</span>
-                            <div class="wallet-address" id="usdtAddress">0x4735DD12589585a97E845706Bc1b2aE6AC740D59</div>
+                            <span class="coin-name">Litecoin (LTC)</span>
+                            <div class="wallet-address" id="ltcAddress">ltc1qy9ea42f0m2hzytmfpp3ze2zhq0x56pehld6yfd</div>
                         </div>
-                        <button class="copy-btn" onclick="copyAddress('usdtAddress', this)">
+                        <button class="copy-btn" onclick="copyAddress('ltcAddress', this)">
                             <i class="ri-file-copy-line"></i>
                         </button>
                     </div>
@@ -624,7 +623,7 @@
             }
             
             const price = hours * 150;
-            const phoneNumber = "+1(260)270-5959";
+            const phoneNumber = "16696492450";
             
             // Logic Preserved: Deposit is price / 2
             const message = `Hello Carrafox, I would like to pay a Depositing fee of $${price/2} for Pretanal Massage for ${hours} hour(s) via ${paymentMethod} and I wiil like to have mine at ${bookingTime}.`;
