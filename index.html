@@ -54,6 +54,9 @@
     
     <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Chat Widget CSS -->
+    <link rel="stylesheet" href="chat.css">
 </head>
 <body>
 
@@ -328,5 +331,44 @@
     
     <!-- Main JS -->
     <script src="script.js"></script>
+
+    <!-- Chat Widget HTML -->
+    <div class="chat-widget">
+        <button class="chat-toggle-btn" id="chat-toggle-btn" title="Open Chat">
+            <i class="ri-message-2-line"></i>
+        </button>
+        
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <h3>Carrafox Support</h3>
+                <button class="chat-close-btn" id="chat-close-btn">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot">
+                    <div class="message-bubble">
+                        Hello! 👋 How can we help you today?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <textarea 
+                    id="chat-input" 
+                    class="chat-input-field" 
+                    placeholder="Type your message..."
+                    rows="1"
+                ></textarea>
+                <button class="chat-send-btn" id="chat-send-btn">
+                    <i class="ri-send-plane-fill"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Widget JS -->
+    <script src="chat.js"></script>
 </body>
 </html>
